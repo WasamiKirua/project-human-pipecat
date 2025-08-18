@@ -1,0 +1,26 @@
+@import "@pipecat-ai/voice-ui-kit/styles.css";
+@import "./styles/samantha.css";
+@import "./styles/companion.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global companion styles */
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  * {
+    @apply selection:bg-primary/30 selection:text-foreground;
+  }
+
+  /* Modern input styling */
+  input, button, textarea, select {
+    font-family: inherit;
+  }
+}

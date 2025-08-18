@@ -1,0 +1,351 @@
+/* Companion Interface Specific Styles - Compact Terminal-like Layout */
+
+/* Companion interface container with soft gradient */
+.samantha.companion-interface {
+  background: linear-gradient(135deg, #fdf6f0 0%, #fef2ee 50%, #fefaf7 100%) !important;
+  min-height: 100vh;
+  transition: background 0.5s ease;
+}
+
+/* Dark mode background - sophisticated navy */
+.samantha.companion-interface.dark {
+  background: linear-gradient(135deg, #0f1419 0%, #141920 50%, #0f1419 100%) !important;
+}
+
+/* Enhanced status indicators for companion interface - matching terminal behavior */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--color-muted-foreground);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+}
+
+.status-indicator.connected {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary);
+}
+
+.status-indicator.speaking {
+  background: var(--color-companion);
+  box-shadow: 0 0 8px var(--color-companion);
+  animation: pulse-gentle 1s ease-in-out infinite;
+}
+
+.status-indicator.active {
+  background: #00bcd4; /* cyan for user audio - distinct from other colors */
+  box-shadow: 0 0 8px #00bcd4;
+}
+
+.status-indicator.error {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.status-indicator.warning {
+  background: #f59e0b;
+  box-shadow: 0 0 8px #f59e0b;
+}
+
+/* Voice indicators with breathing animation - compact */
+.voice-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--color-accent);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.voice-indicator.active {
+  background: var(--color-primary);
+  color: white;
+  animation: breathe 2s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(255, 138, 101, 0.2);
+}
+
+.voice-indicator:before {
+  content: "●";
+  font-size: 8px;
+  animation: pulse-gentle 1.5s ease-in-out infinite;
+}
+
+/* Conversation bubbles - more compact */
+.conversation-bubble {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.conversation-bubble.user {
+  background: var(--color-accent);
+  margin-left: 1rem;
+  border-top-right-radius: 2px;
+}
+
+.conversation-bubble.companion {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  margin-right: 1rem;
+  border-top-left-radius: 2px;
+}
+
+.conversation-bubble:hover {
+  box-shadow: 0 2px 6px rgba(255, 138, 101, 0.15);
+}
+
+/* Enhanced companion panels - compact like terminal */
+.companion-panel {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.companion-panel:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode panel shadows */
+.dark .companion-panel {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .companion-panel:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.companion-panel .panel-header {
+  background: linear-gradient(135deg, #fef2ee, #f8f2eb);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode panel headers - sophisticated navy */
+.dark .companion-panel .panel-header {
+  background: linear-gradient(135deg, #252b32, #1e2328);
+}
+
+.companion-panel .panel-header h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--color-foreground);
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.companion-panel .panel-subtitle {
+  font-size: 10px;
+  color: var(--color-muted-foreground);
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+/* Better visibility for panel subtitles in dark mode */
+.dark .companion-panel .panel-subtitle {
+  color: #9bb0c1;
+  opacity: 0.9;
+}
+
+.companion-panel .panel-content {
+  padding: 12px;
+}
+
+/* Animations - keep compact */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink-fast {
+  0%, 40% { opacity: 1; }
+  50%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes voice-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.voice-active {
+  animation: voice-pulse 1.5s ease-in-out infinite;
+}
+
+/* Companion-specific text styles - matching terminal sizes */
+.companion-text {
+  color: var(--color-foreground);
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.4;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Better contrast for status text in dark mode */
+.dark .companion-text {
+  color: #9bb0c1; /* Warm gray-blue for better visibility */
+  opacity: 0.9;
+}
+
+.companion-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--color-muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Enhanced contrast for labels in dark mode */
+.dark .companion-label {
+  color: #9bb0c1;
+}
+
+.companion-label:before {
+  content: "► ";
+  color: var(--color-primary);
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+/* Companion buttons - matching terminal button sizes */
+.companion-button {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 3px;
+  font-weight: normal;
+  font-size: 12px;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.companion-button:hover {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 6px rgba(255, 138, 101, 0.2);
+}
+
+.companion-button:active {
+  transform: scale(0.98);
+}
+
+.companion-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.companion-button:disabled:hover {
+  background: transparent;
+  color: var(--color-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: none;
+}
+
+/* Dark mode button enhancements */
+.dark .companion-button {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .companion-button:hover {
+  box-shadow: 0 2px 8px rgba(255, 138, 101, 0.4);
+}
+
+/* Compact input styling */
+input, select, textarea {
+  background: var(--color-input);
+  border: 1px solid var(--color-border);
+  color: var(--color-foreground);
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(255, 138, 101, 0.2);
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--color-muted-foreground);
+  opacity: 0.5;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Dark mode input styling */
+.dark input:focus, .dark select:focus, .dark textarea:focus {
+  box-shadow: 0 0 0 2px rgba(255, 138, 101, 0.4);
+}
+
+/* Transitions for all interactive elements */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Smooth theme transitions */
+.samantha,
+.samantha *,
+.companion-interface,
+.companion-panel {
+  transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+.companion-button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

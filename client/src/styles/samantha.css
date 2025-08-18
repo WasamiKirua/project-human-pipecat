@@ -1,0 +1,314 @@
+@custom-variant samantha (&:is(.samantha *));
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-companion: var(--color-companion);
+  
+  --shadow-warm: 0 2px 4px rgba(255, 138, 101, 0.15);
+  --shadow-glow: 0 0 8px rgba(255, 138, 101, 0.2);
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-gentle {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes blink-fast {
+    0%, 40% { opacity: 1; }
+    50%, 90% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
+
+.samantha {
+  --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  
+  /* Warm, intimate color palette inspired by "Her" - soft on eyes */
+  --color-primary: #ff8a65;        /* Warm coral/orange */
+  --color-secondary: #ffab91;      /* Lighter coral */
+  --color-companion: #e57373;      /* Soft red for companion voice */
+  --color-background: #fdf6f0;     /* Warm cream - much softer than white */
+  --color-foreground: #3e2723;     /* Dark brown */
+  --color-card: #fefaf7;           /* Very light warm cream */
+  --color-card-foreground: #3e2723;
+  --color-border: #f0e6d6;         /* Warm beige borders */
+  --color-input: #f8f2eb;          /* Light warm input background */
+  --color-accent: #fef2ee;         /* Very light peach accent */
+  --color-accent-foreground: var(--color-foreground);
+  --color-ring: var(--color-primary);
+  --color-muted: #f5f0e8;          /* Warm muted background */
+  --color-muted-foreground: #8d7053; /* Warm brown muted text */
+  --color-popover: var(--color-card);
+  --color-popover-foreground: var(--color-foreground);
+  
+  /* Compact design like terminal */
+  --radius-base: 4px;
+  --radius-sm: 3px;
+  --radius-lg: 6px;
+  --radius-full: 50px;
+
+  /* Dark mode variants - sophisticated navy blue */
+  &.dark {
+    --color-background: #0f1419;      /* Deep navy background */
+    --color-foreground: #c1cdd7;      /* Soft warm gray instead of bright white */
+    --color-card: #1e2328;            /* Slightly lighter navy cards */
+    --color-card-foreground: #c1cdd7; /* Soft warm gray text on cards */
+    --color-border: #2a3038;          /* Medium navy borders */
+    --color-input: #1e2328;           /* Dark navy input */
+    --color-accent: #252b32;          /* Dark navy accent */
+    --color-accent-foreground: #c1cdd7;
+    --color-muted: #1e2328;           /* Dark muted */
+    --color-muted-foreground: #9bb0c1; /* Warm gray-blue for better contrast */
+    --color-popover: #1e2328;
+    --color-popover-foreground: #c1cdd7;
+  }
+
+  * {
+    &::selection {
+      background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+      color: var(--color-foreground);
+    }
+  }
+
+  /* Compact scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border: 1px solid var(--color-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary);
+  }
+
+  /* Remove terminal effects for clean, modern look */
+  body:after,
+  body:before {
+    display: none;
+  }
+}
+
+/* Compact companion-specific UI elements matching terminal sizes */
+.samantha .companion-text {
+  color: var(--color-foreground);
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.4;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.samantha .companion-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--color-muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  tracking-wider: true;
+  
+  &:before {
+    content: "► ";
+    color: var(--color-primary);
+    font-size: 10px;
+  }
+}
+
+.samantha .companion-button {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-weight: normal;
+  font-size: 12px;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: var(--shadow-warm);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &:disabled:hover {
+    background: transparent;
+    color: var(--color-primary);
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.samantha .conversation-bubble {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.2s ease;
+  font-size: 13px;
+  line-height: 1.4;
+
+  &.user {
+    background: var(--color-accent);
+    margin-left: 1rem;
+  }
+
+  &.companion {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    margin-right: 1rem;
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-warm);
+  }
+}
+
+.samantha .voice-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &.active {
+    background: var(--color-primary);
+    color: white;
+    animation: breathe 2s ease-in-out infinite;
+  }
+
+  &:before {
+    content: "●";
+    font-size: 8px;
+    animation: pulse-gentle 1.5s ease-in-out infinite;
+  }
+}
+
+.samantha .status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--color-muted-foreground);
+  border-radius: 50%;
+  margin-right: 8px;
+  transition: all 0.3s ease;
+}
+
+.samantha .status-indicator.connected {
+  background: var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.samantha .status-indicator.speaking {
+  background: var(--color-companion);
+  animation: pulse-gentle 1s ease-in-out infinite;
+}
+
+.samantha .status-indicator.active {
+  background: #00bcd4; /* cyan for user audio */
+  box-shadow: 0 0 8px #00bcd4;
+}
+
+.samantha .status-indicator.error {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.samantha .status-indicator.warning {
+  background: #f59e0b;
+  box-shadow: 0 0 8px #f59e0b;
+}
+
+/* Compact panel styling matching terminal proportions */
+.samantha .companion-panel {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  
+  .panel-header {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-muted));
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+    
+    h3 {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--color-foreground);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .panel-subtitle {
+      font-size: 10px;
+      color: var(--color-muted-foreground);
+      margin-top: 2px;
+      opacity: 0.7;
+    }
+  }
+  
+  .panel-content {
+    padding: 12px;
+  }
+}
+
+/* Compact animations */
+@keyframes voice-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.samantha .voice-active {
+  animation: voice-pulse 1.5s ease-in-out infinite;
+}
