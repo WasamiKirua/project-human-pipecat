@@ -30,7 +30,11 @@ MODEL=WasamiKirua/gemma3-270M-ProjectHuman-GGUF:Q8_0
 # Fine Tuned LFM2 1.2B
 MODEL=WasamiKirua/LFM2-1.2B-ProjectHuman-GGUF:Q8_0
 
-./llama-server -hf $MODEL -c 2048 --n-gpu-layers -1 --chat-template llama3
+Pick the respectevely one
+CHAT_TEMP=llama3, CHAT_TEMP=gemma, CHAT_TEMP=chatml
+
+
+./llama-server -hf $MODEL -c 2048 --n-gpu-layers -1 --chat-template $CHAT_TEMP
 ```
 
 ## [Pipecat](https://pipecat.ai/) voice bot 
