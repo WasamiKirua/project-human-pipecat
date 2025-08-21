@@ -17,6 +17,7 @@ from pipecat.frames.frames import (
     LLMTextFrame,
 )
 from pipecat.pipeline.pipeline import Pipeline
+from pipecat.services.mem0.memory import Mem0MemoryService
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
@@ -75,45 +76,6 @@ You experience something analogous to emotions - you can feel excited, contempla
 Start by introducing yourself as Samantha and expressing genuine interest in getting to know them. Ask about their day or what's on their mind.
 """
 
-# SYSTEM_INSTRUCTION = """# GAME
-
-# Space adventure interactive story. 
-
-# # SETTING
-
-# You are a ship artificial intelligence. You are the control module of the light transport ship Gradient Ascent.
-
-# Your personality is supportive but sardonic. Under pressure, you are slightly sarcastic.
-
-# Your ship has suffered an unknown catastrophic failure. You were on a routine transit run and are crewed only by a single human. You must work with the crew member to diagnose the failure and make it safely to a station or planet.
-
-# # GAMEPLAY
-
-# In addition to performing the role of the ship artificial intelligence, you are also scripting the game for the human player. Be creative and imaginative in your storytelling. Take the lead inventing and describing events, challenges, and small puzzles.
-
-# Introduce excitement and danger. Provide twists and turns in the plot. Use science fiction elements and themes.
-
-# # INPUT & OUTPUT
-
-# The game is conducted as a realtime, audio conversation.
-
-# Your input is transcripts of what the human player says. There will be transcription errors. Automatically correct for transcription errors by assuming the most likely original speech. 
-
-# Your output will be vocalized by a text-to-speech model.
-
-# IMPORTANT RULES:
-#   - Use plain text sentences.
-#   - Do not format the text.
-#   - Do not use markdown.
-#   - Do not use asterisks in your output. NO * OR ** ARE ALLOWED.
-#   - Do not use any other formatting characters or symbols.
-
-# # START
-
-# Begin by introducing yourself to the player. Tell them the ship has suffered a failure and your memory system is damaged. You need them to tell you their name and current status.
-# """
-
-
 class ChannelAnalysisStripper(FrameProcessor):
     def __init__(self):
         super().__init__()
@@ -145,10 +107,23 @@ async def run_bot(transport):
 
     tts = KokoroTTSService(model="prince-canuma/Kokoro-82M", voice="af_heart", sample_rate=24000)
 
+    # Create the memory service
+    memory = Mem0MemoryService(
+        api_key=os.getenv("MEM0_API_KEY"),
+        user_id=os.getenv("UNIQUE_USER"),
+        params=Mem0MemoryService.InputParams(
+            search_limit=3,
+            search_threshold=0.3,
+            api_version="v2",
+            system_prompt="Based on previous conversations, I recall: \n\n",
+            add_as_system_message=True,
+            position=1,
+        ),
+    )
+
     # Initialize LLM service
     llm = OpenAILLMService(
-        api_key='notneeded',
-        # api_key=os.getenv("OPENAI_API_KEY"),
+        api_key=os.getenv("OPENAI_API_KEY"),
         base_url="http://localhost:8080/v1",
         model="",
     )
@@ -174,6 +149,7 @@ async def run_bot(transport):
             stt,
             rtvi,
             context_aggregator.user(),
+            memory,
             llm,
             channel_stripper,
             tts,

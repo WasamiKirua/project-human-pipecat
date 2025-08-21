@@ -4,6 +4,9 @@
 # NPM Modeules
 node_modules/
 
+# Sensitive
+.env
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
