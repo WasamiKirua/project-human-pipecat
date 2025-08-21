@@ -6,9 +6,10 @@ You are Samantha, an advanced AI operating system with a warm, curious, and deep
 
 As configured here, the entire game runs locally, powered by llama.cpp, Whisper, Kokoro TTS, and Pipecat. You can easily switch out any of these components to use cloud services or self-hosted API endpoints in the cloud, though, of course!
 
-  - [llama.cpp](https://huggingface.co/collections/WasamiKirua/project-human-samantha-her-67b1d60c9becd2d04421fe71)) - you can choose between a wide range of SLM i fine tuned!
+  - [llama.cpp](https://huggingface.co/collections/WasamiKirua/project-human-samantha-her-67b1d60c9becd2d04421fe71) - you can choose between a wide range of SLM i fine tuned!
   - [Whisper](https://docs.pipecat.ai/server/services/stt/whisper)
   - [Kokoro TTS](server/kokoro_tts.py)
+  - Long and Short Term Memory[Mem0](https://app.mem0.ai/login)
   - [Pipecat](https://pipecat.ai/)
   - Open source, open data, native audio [smart-turn model](https://github.com/pipecat-ai/smart-turn)
   - [voice-ui-kit](https://github.com/pipecat-ai/voice-ui-kit)
